@@ -9,8 +9,7 @@ const {
 } = require(`../constants`);
 
 const userArguments = process.argv.slice(USER_ARGV_INDEX);
-const [userCommand] = userArguments;
-const userArgvCount = userArguments.slice(1);
+const [userCommand, userArgvCount] = userArguments;
 
 if (userCommand === `--generate` && userArgvCount > MAX_ARGV_COUNT) {
   console.info(`Не больше ${MAX_ARGV_COUNT} объявлений`);
