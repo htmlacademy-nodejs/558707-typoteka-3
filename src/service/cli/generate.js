@@ -1,10 +1,14 @@
 'use strict';
 
 const {getRandomInt, shuffle} = require(`../../utils`);
+const {ExitCode} = require(`../../constants`);
 
 const FILE_NAME = `mock.json`;
 
-const DEFAULT_COUNT = 1;
+const Counts = {
+  default: 1,
+  max: 1000,
+};
 
 const THREE_MONTHS_MILLISECONDS = 3 * 30 * 24 * 60 * 60 * 1000;
 
@@ -65,13 +69,15 @@ const CATEGORIES = [
   `Железо`,
 ];
 
+const addZeroForString = (number) => `${number}`.padStart(2, `0`);
+
 const generateAnnounceDate = (currentDate, periodMilliseconds) => {
   const announceDate = new Date(currentDate.getTime() - getRandomInt(0, periodMilliseconds));
-  const month = announceDate.getMonth() + 1 > 9 ? announceDate.getMonth() + 1 : `0${announceDate.getMonth() + 1}`;
-  const date = announceDate.getDate() > 9 ? announceDate.getDate() : `0${announceDate.getDate()}`;
-  const hours = announceDate.getHours() > 9 ? announceDate.getHours() : `0${announceDate.getHours()}`;
-  const minutes = announceDate.getMinutes() > 9 ? announceDate.getMinutes() : `0${announceDate.getMinutes()}`;
-  const seconds = announceDate.getSeconds() > 9 ? announceDate.getSeconds() : `0${announceDate.getSeconds()}`;
+  const month = addZeroForString(announceDate.getMonth() + 1);
+  const date = addZeroForString(announceDate.getDate());
+  const hours = addZeroForString(announceDate.getHours());
+  const minutes = addZeroForString(announceDate.getMinutes());
+  const seconds = addZeroForString(announceDate.getSeconds());
 
   return `${announceDate.getFullYear()}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 };
@@ -89,18 +95,17 @@ const generatePublications = (count) => (
 module.exports = {
   name: `--generate`,
   run(args) {
-    const [count] = args;
-    const countPublications = parseInt(count, 10) || DEFAULT_COUNT;
+    const countPublications = parseInt(args, 10) || Counts.default;
+
+    if (countPublications > Counts.max) {
+      console.info(`Не больше ${Counts.max} публикаций`);
+      process.exit(ExitCode.error);
+    }
+
     const content = JSON.stringify(generatePublications(countPublications));
 
     const fs = require(`fs`);
 
-    fs.writeFile(FILE_NAME, content, (err) => {
-      if (err) {
-        return console.error(`Can't write data to file...`);
-      }
-
-      return console.info(`Operation success. File created.`);
-    });
+    fs.writeFileSync(FILE_NAME, content);
   },
 };
