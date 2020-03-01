@@ -1,13 +1,16 @@
 'use strict';
 
+const {writeFileSync} = require(`fs`);
+
 const {getRandomInt, shuffle} = require(`../../utils`);
+
 const {ExitCode} = require(`../../constants`);
 
 const FILE_NAME = `mock.json`;
 
-const Counts = {
-  default: 1,
-  max: 1000,
+const PublicationsCount = {
+  DEFAULT: 1,
+  MAX: 1000,
 };
 
 const THREE_MONTHS_MILLISECONDS = 3 * 30 * 24 * 60 * 60 * 1000;
@@ -15,8 +18,8 @@ const THREE_MONTHS_MILLISECONDS = 3 * 30 * 24 * 60 * 60 * 1000;
 const CURRENT_DATE = new Date();
 
 const AnnounceSentencesCount = {
-  min: 1,
-  max: 5,
+  MIN: 1,
+  MAX: 5,
 };
 
 const TITLES = [
@@ -86,8 +89,8 @@ const generatePublications = (count) => (
   Array(count).fill({}).map(() => ({
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
     createdDate: generateAnnounceDate(CURRENT_DATE, THREE_MONTHS_MILLISECONDS),
-    announce: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.min, AnnounceSentencesCount.max)),
-    fullText: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.min, SENTENCES.length - 1)),
+    announce: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.MIN, AnnounceSentencesCount.MAX)).join('. '),
+    fullText: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.MIN, SENTENCES.length - 1)).join('. '),
     category: shuffle(CATEGORIES).slice(0, getRandomInt(0, CATEGORIES.length - 1)),
   }))
 );
@@ -95,17 +98,15 @@ const generatePublications = (count) => (
 module.exports = {
   name: `--generate`,
   run(args) {
-    const countPublications = parseInt(args, 10) || Counts.default;
+    const count = parseInt(args, 10) || PublicationsCount.DEFAULT;
 
-    if (countPublications > Counts.max) {
-      console.info(`Не больше ${Counts.max} публикаций`);
+    if (count > PublicationsCount.MAX) {
+      console.info(`Не больше ${PublicationsCount.MAX} публикаций`);
       process.exit(ExitCode.error);
     }
 
-    const content = JSON.stringify(generatePublications(countPublications));
+    const content = JSON.stringify(generatePublications(count));
 
-    const fs = require(`fs`);
-
-    fs.writeFileSync(FILE_NAME, content);
+    writeFileSync(FILE_NAME, content);
   },
 };
