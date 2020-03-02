@@ -1,5 +1,7 @@
 'use strict';
 
+const {Command: {HELP}} = require(`../../constants`);
+
 const message = `Программа запускает http-сервер и формирует файл с данными для API.
 
     Гайд:
@@ -10,7 +12,7 @@ const message = `Программа запускает http-сервер и фо
     --generate <count>    формирует файл mock.json`;
 
 module.exports = {
-  name: `--help`,
+  name: HELP,
   run() {
     console.info(message);
   },

@@ -1,10 +1,15 @@
 'use strict';
 
-module.exports.ExitCode = {
-  error: 1,
-  success: 0,
+module.exports = {
+  Command: {
+    GENERATE: `--generate`,
+    HELP: `--help`,
+    VERSION: `--version`,
+  },
+  ExitCode: {
+    ERROR: 1,
+    SUCCESS: 0,
+  },
+  DEFAULT_COMMAND: `--help`,
+  USER_ARGV_INDEX: 2,
 };
-
-module.exports.DEFAULT_COMMAND = `--help`;
-
-module.exports.USER_ARGV_INDEX = 2;

@@ -4,7 +4,7 @@ const {writeFileSync} = require(`fs`);
 
 const {getRandomInt, shuffle} = require(`../../utils`);
 
-const {ExitCode} = require(`../../constants`);
+const {ExitCode: {ERROR}, Command: {GENERATE}} = require(`../../constants`);
 
 const FILE_NAME = `mock.json`;
 
@@ -89,20 +89,20 @@ const generatePublications = (count) => (
   Array(count).fill({}).map(() => ({
     title: TITLES[getRandomInt(0, TITLES.length - 1)],
     createdDate: generateAnnounceDate(CURRENT_DATE, THREE_MONTHS_MILLISECONDS),
-    announce: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.MIN, AnnounceSentencesCount.MAX)).join('. '),
-    fullText: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.MIN, SENTENCES.length - 1)).join('. '),
+    announce: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.MIN, AnnounceSentencesCount.MAX)).join(` `),
+    fullText: shuffle(SENTENCES).slice(0, getRandomInt(AnnounceSentencesCount.MIN, SENTENCES.length - 1)).join(` `),
     category: shuffle(CATEGORIES).slice(0, getRandomInt(0, CATEGORIES.length - 1)),
   }))
 );
 
 module.exports = {
-  name: `--generate`,
+  name: GENERATE,
   run(args) {
     const count = parseInt(args, 10) || PublicationsCount.DEFAULT;
 
     if (count > PublicationsCount.MAX) {
       console.info(`Не больше ${PublicationsCount.MAX} публикаций`);
-      process.exit(ExitCode.error);
+      process.exit(ERROR);
     }
 
     const content = JSON.stringify(generatePublications(count));
