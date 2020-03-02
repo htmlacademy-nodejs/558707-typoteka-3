@@ -10,6 +10,8 @@ module.exports = {
     ERROR: 1,
     SUCCESS: 0,
   },
-  DEFAULT_COMMAND: `--help`,
+  get DEFAULT_COMMAND () {
+    return this.Command.HELP;
+  },
   USER_ARGV_INDEX: 2,
 };
