@@ -1,7 +1,7 @@
 # Личный проект «Типотека» [![Build status][travis-image]][travis-url]
 
 * Студент: [Никита Королюк](https://up.htmlacademy.ru/nodejs/3/user/558707).
-* Наставник: [Николай Мендяев](https://htmlacademy.ru/profile/id1339341).
+* Наставник: [Артем Макаров](https://htmlacademy.ru/profile/deepsick).
 
 ---
 

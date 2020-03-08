@@ -2,7 +2,7 @@
 
 const {Cli} = require(`./cli`);
 const {
-  ExitCode: {SUCCESS},
+  ExitCode,
   DEFAULT_COMMAND,
   USER_ARGV_INDEX,
 } = require(`../constants`);
@@ -12,8 +12,7 @@ const [userCommand, userArgvCount] = userArguments;
 
 if (userArguments.length === 0 || !Cli[userCommand]) {
   Cli[DEFAULT_COMMAND].run();
-  process.exit(SUCCESS);
+  process.exit(ExitCode.SUCCESS);
 }
 
 Cli[userCommand].run(userArgvCount);
-process.exit(SUCCESS);
