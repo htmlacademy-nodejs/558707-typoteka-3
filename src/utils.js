@@ -18,10 +18,10 @@ const shuffle = (someArray) => {
 };
 
 const logger = {
-  showError: (msg) => chalk.red(msg),
-  showSuccess: (msg) => chalk.green(msg),
-  showHelp: (msg) => chalk.grey(msg),
-  showVersion: (msg) => chalk.blue(msg),
+  showError: (msg) => console.error(chalk.red(msg)),
+  showSuccess: (msg) => console.info(chalk.green(msg)),
+  showHelp: (msg) => console.info(chalk.grey(msg)),
+  showVersion: (msg) => console.info(chalk.blue(msg)),
 };
 
 module.exports = {

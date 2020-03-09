@@ -15,7 +15,7 @@ const message = `Программа запускает http-сервер и фо
 module.exports = {
   name: Command.HELP,
   run() {
-    console.info(logger.showHelp(message));
+    logger.showHelp(message);
     process.exit(ExitCode.SUCCESS);
   },
 };

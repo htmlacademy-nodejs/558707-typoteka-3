@@ -100,7 +100,7 @@ module.exports = {
     const formattedCount = parseInt(count, 10) || PublicationsCount.DEFAULT;
 
     if (formattedCount > PublicationsCount.MAX) {
-      console.info(logger.showError(`Не больше ${PublicationsCount.MAX} публикаций`));
+      logger.showError(`Не больше ${PublicationsCount.MAX} публикаций`);
       process.exit(ExitCode.ERROR);
     }
 
@@ -108,10 +108,10 @@ module.exports = {
 
     try {
       await writeFile(FILE_NAME, content);
-      console.log(logger.showSuccess(`Operation success. File created.`));
+      logger.showSuccess(`Operation success. File created.`);
       process.exit(ExitCode.SUCCESS);
     } catch (err) {
-      console.error(logger.showError(`Can't write data to file...`));
+      logger.showError(`Can't write data to file...`);
       process.exit(ExitCode.ERROR);
     }
   },

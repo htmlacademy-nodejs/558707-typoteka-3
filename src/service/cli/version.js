@@ -8,7 +8,7 @@ const {version} = require(`../../../package.json`);
 module.exports = {
   name: Command.VERSION,
   run() {
-    console.info(logger.showVersion(`v${version}`));
+    logger.showVersion(`v${version}`);
     process.exit(ExitCode.SUCCESS);
   },
 };
