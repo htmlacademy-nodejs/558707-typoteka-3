@@ -2,10 +2,7 @@
 
 const {writeFile} = require(`fs`).promises;
 
-const chalk = require(`chalk`);
-
-const {getRandomInt, shuffle} = require(`../../utils`);
-
+const {getRandomInt, shuffle, logger} = require(`../../utils`);
 const {ExitCode, Command} = require(`../../constants`);
 
 const FILE_NAME = `mock.json`;
@@ -99,22 +96,22 @@ const generatePublications = (count) => (
 
 module.exports = {
   name: Command.GENERATE,
-  async run(args) {
-    const count = parseInt(args, 10) || PublicationsCount.DEFAULT;
+  async run(count) {
+    const formattedCount = parseInt(count, 10) || PublicationsCount.DEFAULT;
 
-    if (count > PublicationsCount.MAX) {
-      console.info(chalk.red(`Не больше ${PublicationsCount.MAX} публикаций`));
+    if (formattedCount > PublicationsCount.MAX) {
+      console.info(logger.showError(`Не больше ${PublicationsCount.MAX} публикаций`));
       process.exit(ExitCode.ERROR);
     }
 
-    const content = JSON.stringify(generatePublications(count));
+    const content = JSON.stringify(generatePublications(formattedCount));
 
     try {
       await writeFile(FILE_NAME, content);
-      console.log(chalk.green(`Operation success. File created.`));
+      console.log(logger.showSuccess(`Operation success. File created.`));
       process.exit(ExitCode.SUCCESS);
     } catch (err) {
-      console.error(chalk.red(`Can't write data to file...`));
+      console.error(logger.showError(`Can't write data to file...`));
       process.exit(ExitCode.ERROR);
     }
   },

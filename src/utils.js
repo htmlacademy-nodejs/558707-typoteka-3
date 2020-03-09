@@ -1,5 +1,7 @@
 'use strict';
 
+const chalk = require(`chalk`);
+
 const getRandomInt = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -15,7 +17,15 @@ const shuffle = (someArray) => {
   return someArray;
 };
 
+const logger = {
+  showError: (msg) => chalk.red(msg),
+  showSuccess: (msg) => chalk.green(msg),
+  showHelp: (msg) => chalk.grey(msg),
+  showVersion: (msg) => chalk.blue(msg),
+};
+
 module.exports = {
   getRandomInt,
   shuffle,
+  logger,
 };
