@@ -1,6 +1,7 @@
 'use strict';
 
-const {Command: {HELP}} = require(`../../constants`);
+const {logger} = require(`../../utils`);
+const {ExitCode, Command} = require(`../../constants`);
 
 const message = `Программа запускает http-сервер и формирует файл с данными для API.
 
@@ -12,8 +13,9 @@ const message = `Программа запускает http-сервер и фо
     --generate <count>    формирует файл mock.json`;
 
 module.exports = {
-  name: HELP,
+  name: Command.HELP,
   run() {
-    console.info(message);
+    logger.showHelp(message);
+    process.exit(ExitCode.SUCCESS);
   },
 };
