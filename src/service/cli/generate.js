@@ -30,7 +30,7 @@ const AnnounceSentencesCount = {
 const readContent = async (filePath) => {
   try {
     const content = await readFile(filePath, `utf8`);
-    return content.split(`\n`);
+    return content.split(`\n`).slice(0, -1);
   } catch (err) {
     logger.showError(err);
     return [];
@@ -56,7 +56,7 @@ const generatePublications = (count, titles, categories, sentences) => (
     createdDate: generateAnnounceDate(CURRENT_DATE, THREE_MONTHS_MILLISECONDS),
     announce: shuffle(sentences).slice(0, getRandomInt(AnnounceSentencesCount.MIN, AnnounceSentencesCount.MAX)).join(` `),
     fullText: shuffle(sentences).slice(0, getRandomInt(AnnounceSentencesCount.MIN, sentences.length - 1)).join(` `),
-    category: shuffle(categories).slice(0, getRandomInt(0, categories.length - 1)),
+    category: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)),
   }))
 );
 

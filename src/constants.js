@@ -5,6 +5,7 @@ module.exports = {
     GENERATE: `--generate`,
     HELP: `--help`,
     VERSION: `--version`,
+    SERVER: `--server`,
   },
   ExitCode: {
     ERROR: 1,
@@ -14,4 +15,11 @@ module.exports = {
     return this.Command.HELP;
   },
   USER_ARGV_INDEX: 2,
+  HttpCode: {
+    OK: 200,
+    NOT_FOUND: 404,
+    INTERNAL_SERVER_ERROR: 500,
+    FORBIDDEN: 403,
+    UNAUTHORIZED: 401,
+  },
 };
