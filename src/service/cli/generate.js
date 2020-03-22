@@ -3,9 +3,7 @@
 const {writeFile, readFile} = require(`fs`).promises;
 
 const {getRandomInt, shuffle, logger} = require(`../../utils`);
-const {ExitCode, Command} = require(`../../constants`);
-
-const FILE_NAME = `mock.json`;
+const {ExitCode, Command, FILE_NAME} = require(`../../constants`);
 
 const PublicationsCount = {
   DEFAULT: 1,
