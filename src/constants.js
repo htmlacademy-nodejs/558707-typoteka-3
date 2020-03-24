@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  FILE_NAME: `mock.json`,
   Command: {
     GENERATE: `--generate`,
     HELP: `--help`,

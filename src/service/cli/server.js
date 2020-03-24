@@ -3,11 +3,10 @@
 const http = require(`http`);
 const {readFile} = require(`fs`).promises;
 
-const {Command, HttpCode} = require(`../../constants`);
+const {Command, HttpCode, FILE_NAME} = require(`../../constants`);
 const {logger} = require(`../../utils`);
 
 const DEFAULT_PORT = 3000;
-const FILENAME = `mock.json`;
 const NOT_FOUND_MESSAGE_TXT = `Not found`;
 
 const sendResponse = (res, statusCode, message) => {
@@ -32,7 +31,7 @@ const onClientConnect = async (req, res) => {
   switch (req.url) {
     case `/`:
       try {
-        const fileContent = await readFile(FILENAME);
+        const fileContent = await readFile(FILE_NAME);
         const mocks = JSON.parse(fileContent);
         const message = mocks.map((post) => `<li>${post.title}</li>`).join(``);
 
