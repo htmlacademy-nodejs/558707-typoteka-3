@@ -10,7 +10,7 @@ const articlesRoutes = require(`./routes/articles`);
 const searchRoutes = require(`./routes/search`);
 const categoriesRoutes = require(`./routes/categories`);
 
-const DEFAULT_PORT = 8080;
+const DEFAULT_PORT = process.env.PORT || 8080;
 
 const app = express();
 
