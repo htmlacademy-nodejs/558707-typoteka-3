@@ -1,5 +1,10 @@
 extends ./layouts/layout
 
+block vars
+    - const bodyClass= ``
+    - const wrapperClass= `wrapper wrapper--nobackground`
+    - const mainClass= `main-page main-page--padding`
+
 block content
     section.main-page__category.category
         h1.category__title Категории

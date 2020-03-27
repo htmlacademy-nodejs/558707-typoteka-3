@@ -1,5 +1,10 @@
 extends ./layouts/layout
 
+block vars
+    - const bodyClass= ``
+    - const wrapperClass= `wrapper`
+    - const mainClass= ``
+
 block content
     section.modal.modal--flex
         div.popup.popup--new-publication.popup--flex

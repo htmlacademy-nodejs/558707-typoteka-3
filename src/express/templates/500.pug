@@ -1,5 +1,10 @@
 extends ./layouts/layout
 
+block vars
+    - const bodyClass= ``
+    - const wrapperClass= `wrapper-color`
+    - const mainClass= ``
+
 block content
     h1.visually-hidden Ошибка 500
     section.error.error--500

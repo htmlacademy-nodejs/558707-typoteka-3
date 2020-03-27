@@ -1,5 +1,10 @@
 extends ./layouts/layout
 
+block vars
+    - const bodyClass= ``
+    - const wrapperClass= `wrapper`
+    - const mainClass= ``
+
 block content
     h1.visually-hidden Регистрация пользователя
     section.modal
@@ -32,7 +37,7 @@ block content
                             input(type='password', placeholder='Повтор пароля', required='')
                     div.form__image-loader
                         a.form__avatar.avatar
-                            img(src='img/icons/smile.svg', alt='аватар пользователя')
+                            img(src='/img/icons/smile.svg', alt='аватар пользователя')
                         label
                             input.visually-hidden(type='file')
                             | Загрузить фото профиля

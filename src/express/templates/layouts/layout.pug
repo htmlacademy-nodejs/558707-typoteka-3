@@ -1,3 +1,5 @@
+block vars
+
 doctype html
 html(lang='ru')
     head
@@ -5,14 +7,14 @@ html(lang='ru')
         meta(name='viewport', content='width=device-width,initial-scale=1')
         meta(name='Description', content='Личный блог Типотека')
         title Типотека
-        link(rel='preload', href='./fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
-        link(rel='preload', href='./fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
-        link(rel='preload', href='./fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
-        link(rel='stylesheet', href='css/style.min.css')
-    body
-        div.wrapper
+        link(rel='preload', href='/fonts/Inter-Regular.woff2', as='font', crossorigin='anonymous')
+        link(rel='preload', href='/fonts/Inter-Medium.woff2', as='font', crossorigin='anonymous')
+        link(rel='preload', href='/fonts/SFProDisplay-Regular.woff2', as='font', crossorigin='anonymous')
+        link(rel='stylesheet', href='/css/style.min.css')
+    body(class=`${bodyClass}`)
+        div(class=`${wrapperClass}`)
             include ../includes/header
-            main.main-page
+            main(class=`${mainClass}`)
                 block content
             include ../includes/footer
         //
