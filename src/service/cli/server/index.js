@@ -16,10 +16,10 @@ app.use(express.json());
 app.use(`/posts`, postsRoutes);
 
 module.exports = {
-    name: Command.SERVER,
-    run(port) {
-        const formattedPort = parseInt(port, 10) || DEFAULT_PORT;
+  name: Command.SERVER,
+  run(port) {
+    const formattedPort = parseInt(port, 10) || DEFAULT_PORT;
 
-        app.listen(DEFAULT_PORT, (err) => err ? logger.showError(`Ошибка при создании сервера`, err) : logger.showSuccess(`Ожидаю соединений на ${formattedPort}`));
-    },
+    app.listen(formattedPort, (err) => err ? logger.showError(`Ошибка при создании сервера`, err) : logger.showSuccess(`Ожидаю соединений на ${formattedPort}`));
+  },
 };
