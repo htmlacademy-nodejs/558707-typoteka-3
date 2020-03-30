@@ -10,7 +10,8 @@ const message = `Программа запускает http-сервер и фо
     Команды:
     --version:            выводит номер версии
     --help:               печатает этот текст
-    --generate <count>    формирует файл mock.json`;
+    --generate <count>    формирует файл mock.json
+    --server <count>      запускает сервер на порту <count>`;
 
 module.exports = {
   name: Command.HELP,
