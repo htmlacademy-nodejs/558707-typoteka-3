@@ -2,10 +2,12 @@
 
 const express = require(`express`);
 
-const {Command} = require(`../../../constants`);
+const {Command, HttpCode} = require(`../../../constants`);
 const {logger} = require(`../../../utils`);
 
-const postsRoutes = require(`./routes/posts`);
+const articlesRoutes = require(`./routes/articles`);
+const categoriesRoutes = require(`./routes/categories`);
+const searchRoutes = require(`./routes/search`);
 
 const DEFAULT_PORT = process.env.PORT || 3000;
 
@@ -13,7 +15,13 @@ const app = express();
 
 app.use(express.json());
 
-app.use(`/posts`, postsRoutes);
+app.use(`api/articles`, articlesRoutes);
+app.use(`api/categories`, categoriesRoutes);
+app.use(`api/search`, searchRoutes);
+
+app.use((req, res) => res
+    .status(HttpCode.NOT_FOUND)
+    .send(`Not found`));
 
 module.exports = {
   name: Command.SERVER,

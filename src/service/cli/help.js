@@ -11,7 +11,7 @@ const message = `Программа запускает http-сервер и фо
     --version:            выводит номер версии
     --help:               печатает этот текст
     --generate <count>    формирует файл mock.json
-    --server <count>      запускает сервер на порту <count>`;
+    --server <port>       запускает сервер на порту <port>`;
 
 module.exports = {
   name: Command.HELP,
