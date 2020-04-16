@@ -15,9 +15,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use(`api/articles`, articlesRoutes);
-app.use(`api/categories`, categoriesRoutes);
-app.use(`api/search`, searchRoutes);
+app.use(`/api/articles`, articlesRoutes);
+app.use(`/api/categories`, categoriesRoutes);
+app.use(`/api/search`, searchRoutes);
 
 app.use((req, res) => res
     .status(HttpCode.NOT_FOUND)

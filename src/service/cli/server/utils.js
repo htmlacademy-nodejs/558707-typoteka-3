@@ -6,22 +6,21 @@ const {readFile, writeFile} = require(`fs`).promises;
 
 const EMPTY_FILE_MESSAGE = `[]`;
 
-const getContent = async (filePath) => {
+const getContent = async (filePath, isNeedToParse = true) => {
   const fileContent = await readFile(filePath, `utf-8`) || EMPTY_FILE_MESSAGE;
-  return typeof fileContent === `string` ? fileContent : JSON.parse(fileContent);
+  return isNeedToParse ? JSON.parse(fileContent) : fileContent;
 };
 
-const rewriteContent = async (fileName, content) => await writeFile(fileName, JSON.stringify(content));
+const rewriteContent = async (fileName, contents) => await writeFile(fileName, JSON.stringify(contents));
 
-const addElementToContent = (content, requestBody) => {
-  const newElement = requestBody;
-  newElement.id = nanoid.nanoid(5);
-  content.push(newElement);
+const addElementToContent = (contents, requestBody) => {
+  requestBody.id = nanoid.nanoid(5);
+  contents.push(requestBody);
 };
 
-const removeElementFromContent = (content, element) => {
-  const elementIndex = content.indexOf(element);
-  content.splice(elementIndex, 1);
+const removeElementFromContent = (contents, element) => {
+  const elementIndex = contents.indexOf(element);
+  contents.splice(elementIndex, 1);
 };
 
 const updateElementContent = (element, requestBody) => {
@@ -36,8 +35,8 @@ const updateElementContent = (element, requestBody) => {
   }
 };
 
-const getElementById = (content, elementId) => {
-  const element = content.find((offer) => offer.id === elementId);
+const getElementById = (contents, elementId) => {
+  const element = contents.find((offer) => offer.id === elementId);
 
   if (!element) {
     throw new Error(`Not found ELEMENT by ID: ${elementId}`);
