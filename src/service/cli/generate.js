@@ -1,5 +1,6 @@
 'use strict';
 
+const nanoid = require(`nanoid`);
 const {writeFile, readFile} = require(`fs`).promises;
 
 const {getRandomInt, shuffle, logger} = require(`../../utils`);
@@ -14,6 +15,7 @@ const FilePath = {
   SENTENCES: `./data/sentences.txt`,
   TITLES: `./data/titles.txt`,
   CATEGORIES: `./data/categories.txt`,
+  COMMENTS: `./data/comments.txt`,
 };
 
 const THREE_MONTHS_MILLISECONDS = 3 * 30 * 24 * 60 * 60 * 1000;
@@ -28,7 +30,7 @@ const AnnounceSentencesCount = {
 const readContent = async (filePath) => {
   try {
     const content = await readFile(filePath, `utf8`);
-    return content.split(`\n`).slice(0, -1);
+    return content.replace(/\r/g, ``).split(`\n`).slice(0, -1);
   } catch (err) {
     logger.showError(err);
     return [];
@@ -48,13 +50,18 @@ const generateAnnounceDate = (currentDate, periodMilliseconds) => {
   return `${announceDate.getFullYear()}-${month}-${date} ${hours}:${minutes}:${seconds}`;
 };
 
-const generatePublications = (count, titles, categories, sentences) => (
+const generatePublications = (count, titles, categories, sentences, comments) => (
   Array(count).fill({}).map(() => ({
+    id: nanoid.nanoid(5),
     title: titles[getRandomInt(0, titles.length - 1)],
     createdDate: generateAnnounceDate(CURRENT_DATE, THREE_MONTHS_MILLISECONDS),
     announce: shuffle(sentences).slice(0, getRandomInt(AnnounceSentencesCount.MIN, AnnounceSentencesCount.MAX)).join(` `),
     fullText: shuffle(sentences).slice(0, getRandomInt(AnnounceSentencesCount.MIN, sentences.length - 1)).join(` `),
     category: shuffle(categories).slice(0, getRandomInt(1, categories.length - 1)),
+    comments: Array(getRandomInt(1, 3)).fill({}).map(() => ({
+      id: nanoid.nanoid(5),
+      text: shuffle(comments).slice(1, 3).join(` `),
+    })),
   }))
 );
 
@@ -64,6 +71,7 @@ module.exports = {
     const sentences = await readContent(FilePath.SENTENCES);
     const titles = await readContent(FilePath.TITLES);
     const categories = await readContent(FilePath.CATEGORIES);
+    const comments = await readContent(FilePath.COMMENTS);
 
     const formattedCount = parseInt(count, 10) || PublicationsCount.DEFAULT;
 
@@ -72,7 +80,7 @@ module.exports = {
       process.exit(ExitCode.ERROR);
     }
 
-    const content = JSON.stringify(generatePublications(formattedCount, titles, categories, sentences));
+    const content = JSON.stringify(generatePublications(formattedCount, titles, categories, sentences, comments));
 
     try {
       await writeFile(FILE_NAME, content);
