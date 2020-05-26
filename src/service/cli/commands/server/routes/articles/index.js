@@ -6,7 +6,7 @@ const {getArticles,
   getArticle,
   postArticle,
   putArticle,
-  deleteArticle} = require(`../../controllers/articles`);
+  deleteArticle} = require(`../../controllers/adticles`);
 
 const commentsRoute = require(`./comments`);
 

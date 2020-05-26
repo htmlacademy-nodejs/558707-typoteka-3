@@ -2,7 +2,8 @@
 
 const {join} = require(`path`);
 
-const handlers = require(`../../utils`);
+const handlers = require(`../utils`);
+const pinoLogger = require(`../../../../../pino-logger`);
 const {FILE_NAME, HttpCode} = require(`../../../../../constants`);
 
 const FILE_PATH = join(__dirname, `..`, `..`, `..`, `..`, `..`, `..`, FILE_NAME);
@@ -12,9 +13,10 @@ const getArticles = async (req, res) => {
   try {
     const fileContent = await handlers.getContent(FILE_PATH, false);
 
-    res.json(fileContent);
+    res.status(HttpCode.OK).json(fileContent);
   } catch (err) {
-    res.sendStatus(HttpCode.INTERNAL_SERVER_ERROR).send(err.message);
+    res.status(HttpCode.INTERNAL_SERVER_ERROR).send(err.message);
+    pinoLogger.error(`Error: ${err.message}`);
   }
 };
 
@@ -23,9 +25,10 @@ const getArticle = async (req, res) => {
     const fileContent = await handlers.getContent(FILE_PATH);
     const article = handlers.getElementById(fileContent, req.params.articleId);
 
-    res.json(article);
+    res.status(HttpCode.OK).json(article);
   } catch (err) {
-    res.send(err.message);
+    res.status(HttpCode.BAD_REQUEST).send(err.message);
+    pinoLogger.error(`Error: ${err.message}`);
   }
 };
 
@@ -36,9 +39,10 @@ const postArticle = async (req, res) => {
     handlers.addElementToContent(fileContent, req.body);
     await handlers.rewriteContent(FILE_NAME, fileContent);
 
-    res.sendStatus(HttpCode.OK);
+    res.status(HttpCode.OK).send(req.body);
   } catch (err) {
-    res.send(err.message);
+    res.status(HttpCode.BAD_REQUEST).send(err.message);
+    pinoLogger.error(`Error: ${err.message}`);
   }
 };
 
@@ -49,9 +53,10 @@ const putArticle = async (req, res) => {
     handlers.updateElementContent(article, req.body);
     await handlers.rewriteContent(FILE_NAME, fileContent);
 
-    res.sendStatus(HttpCode.OK);
+    res.status(HttpCode.OK).send(req.body);
   } catch (err) {
-    res.send(err.message);
+    res.status(HttpCode.BAD_REQUEST).send(err.message);
+    pinoLogger.error(`Error: ${err.message}`);
   }
 };
 
@@ -62,9 +67,10 @@ const deleteArticle = async (req, res) => {
     handlers.removeElementFromContent(fileContent, article);
     await handlers.rewriteContent(FILE_NAME, fileContent);
 
-    res.sendStatus(HttpCode.OK);
+    res.status(HttpCode.OK).send(req.body);
   } catch (err) {
-    res.send(err.message);
+    res.status(HttpCode.BAD_REQUEST).send(err.message);
+    pinoLogger.error(`Error: ${err.message}`);
   }
 };
 
