@@ -4,7 +4,7 @@ const {Router} = require(`express`);
 
 const {getComments,
   deleteComment,
-  postComment} = require(`../../controllers/articles/comments`);
+  postComment} = require(`../../controllers/comments`);
 
 const commentsRouter = new Router();
 

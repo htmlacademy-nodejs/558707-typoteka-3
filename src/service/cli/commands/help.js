@@ -1,7 +1,7 @@
 'use strict';
 
-const {logger} = require(`../../utils`);
-const {ExitCode, Command} = require(`../../constants`);
+const {logger} = require(`../../../utils`);
+const {ExitCode, Command} = require(`../../../constants`);
 
 const message = `Программа запускает http-сервер и формирует файл с данными для API.
 

@@ -3,8 +3,8 @@
 const nanoid = require(`nanoid`);
 const {writeFile, readFile} = require(`fs`).promises;
 
-const {getRandomInt, shuffle, logger} = require(`../../utils`);
-const {ExitCode, Command, FILE_NAME} = require(`../../constants`);
+const {getRandomInt, shuffle, logger} = require(`../../../utils`);
+const {ExitCode, Command, FILE_NAME} = require(`../../../constants`);
 
 const PublicationsCount = {
   DEFAULT: 1,
