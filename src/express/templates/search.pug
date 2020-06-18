@@ -12,5 +12,10 @@ block content
             div.search.search-page__form
                 form(action='#', method='get')
                     label
-                        input(type='text', placeholder='Что ищем?')
+                        input(type='search', name='search', placeholder='Что ищем?')
                     button.search__button.button.button--transparent(type='submit') Найти
+                if articles
+                    each article in articles
+                        div.search__result
+                            time(class="search__date", datetime= article.createdDate)= `${new Date(article.createdDate).getDate().toString().padStart(2, `0`)}.${(new Date(article.createdDate).getMonth() + 1).toString().padStart(2, `0`)}.${new Date(article.createdDate).getFullYear()}, ${new Date(article.createdDate).getHours().toString().padStart(2, `0`)}:${new Date(article.createdDate).getMinutes().toString().padStart(2, `0`)}`
+                            a.search__link= article.title

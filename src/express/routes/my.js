@@ -2,9 +2,11 @@
 
 const {Router} = require(`express`);
 
+const {getIndex, getIndexComments} = require(`../controllers/my`);
+
 const myRouter = new Router();
 
-myRouter.get(`/`, (req, res) => res.render(`my`));
-myRouter.get(`/comments`, (req, res) => res.render(`comments`));
+myRouter.get(`/`, getIndex);
+myRouter.get(`/comments`, getIndexComments);
 
 module.exports = myRouter;

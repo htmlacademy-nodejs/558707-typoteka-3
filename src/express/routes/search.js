@@ -2,8 +2,10 @@
 
 const {Router} = require(`express`);
 
+const {getIndex} = require(`../controllers/search`);
+
 const searchRouter = new Router();
 
-searchRouter.get(`/`, (req, res) => res.render(`search`));
+searchRouter.get(`/`, getIndex);
 
 module.exports = searchRouter;
