@@ -11,8 +11,7 @@
     "start": "cross-env LOG_LEVEL=error npm run cli -- --server",
     "start::debug": "cross-env LOG_LEVEL=debug npm run cli -- --server | npx pino-pretty",
     "server": "nodemon ./src/service/service.js -- --server",
-    "start-front-server": "nodemon ./src/express/index.js",
-    "db::connect": "node -r dotenv/config ./src/service/database/connect.js"
+    "start-front-server": "nodemon ./src/express/index.js"
   },
   "repository": {
     "type": "git",

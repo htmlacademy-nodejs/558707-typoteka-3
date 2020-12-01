@@ -5,7 +5,7 @@ const pinoLogger = require(`../../pino-logger`);
 
 const {DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME} = process.env;
 
-(async () => {
+const connect = async () => {
   const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`);
 
   pinoLogger.info(`Connection started`);
@@ -16,4 +16,6 @@ const {DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME} = process.env;
   } catch (err) {
     pinoLogger.error(`Error: ${err}`);
   }
-})();
+};
+
+module.exports = connect;
